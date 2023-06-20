@@ -24,4 +24,43 @@ export class EmpleadoService {
     let url = `${this.baseUri}/empleados` ;
     return this.http.get(url);
   }
+  
+  //metodo para obtener un solo empleado por su id
+  getEmpleado(id):Observable<any>{
+    let url = `${this.baseUri}/empleado/${id}`;
+    return this.http.get(url, {headers: this.headers})
+    .pipe(map((res:Response) => {
+      return res || {};
+    }),
+    catchError(this.errorManager)
+    );
+  }
+
+  //metodo para actualizar un empleado
+  updateEmpleado(id, data):Observable<any>{
+    let url = `${this.baseUri}/update/${id}`;
+    return this.http.put(url,data, {headers: this.headers})
+      .pipe(catchError(this.errorManager));
+  }
+
+  //metodo para eliminar un empleado
+  deleteEmpleado(id):Observable<any>{
+    let url = `${this.baseUri}/delete/${id}`;
+    return this.http.delete(url, {headers: this.headers})
+      .pipe(catchError(this.errorManager));
+  }
+  
+  //manejador de errores
+  errorManager(error: HttpErrorResponse){
+    let errorMessage = '';
+    if(error.error instanceof ErrorEvent){
+      errorMessage = error.error.message;
+    } else {
+      errorMessage = `Código de error: ${error.status}\n Mensaje: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(() => {
+      return errorMessage;
+    });
+  }
 }

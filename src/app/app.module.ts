@@ -8,6 +8,7 @@ import { EditarEmpleadoComponent } from './pages/editar-empleado/editar-empleado
 import { ListarEmpleadosComponent } from './pages/listar-empleados/listar-empleados.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; 
+import { EmpleadoService } from './services/empleado.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [EmpleadoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
